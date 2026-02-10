@@ -18,22 +18,26 @@ This project demonstrates a full-stack IoT architecture where a central server (
 
 ### Data Flow Diagram
 
-```mermaid
-graph TD
-    UI[User Interface] -->|HTTP/WebSocket| PC[Flask Server (PC)]
-    PC -->|Serial/UART Packets| USB[USB-to-TTL Adapter]
-    USB -->|Physical Wires| PiUART[Raspberry Pi UART]
-    PiUART --> Listener[Main Listener Script]
-    
-    subgraph Micro-Services
-    Listener --> GPIO[GPIO Proc]
-    Listener --> I2C[I2C Proc]
-    Listener --> SPI[SPI Proc]
-    end
-    
-    GPIO --> HW1(Hardware LED)
-    I2C --> HW2(Hardware Display)
-    SPI --> HW3(Hardware SD Card)
+```text
+[User Interface] -> (HTTP/WebSocket) -> [Flask Server (PC)] 
+                                              |
+                                       (Serial/UART Packets)
+                                              |
+                                              v
+                                     [USB-to-TTL Adapter]
+                                              |
+                                       (Physical Wires)
+                                              |
+                                              v
+                                     [Raspberry Pi UART]
+                                              |
+                                     [Main Listener Script]
+                                              |
+                            +-----------------+------------------+
+                            |                 |                  |
+                       [GPIO Proc]       [I2C Proc]         [SPI Proc]
+                            |                 |                  |
+                       (Hardware)        (Hardware)         (Hardware)
 ```
 
 ---
